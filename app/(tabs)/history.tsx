@@ -1,12 +1,10 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-function index() {
+export default function Tab() {
   return (
     <View>
-      <Text>Hello cool i guess this is rajneesh verma</Text>
+      <Text>History</Text>
     </View>
   );
 }
-
-export default index;

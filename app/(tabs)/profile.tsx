@@ -1,9 +1,9 @@
 import { Text, View } from "react-native";
 
-export default function Settings() {
+export default function Tab() {
   return (
     <View>
-      <Text>Settings</Text>
+      <Text>Profile</Text>
     </View>
   );
 }
