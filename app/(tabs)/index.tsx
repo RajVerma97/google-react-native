@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 
 export default function Tab() {
   return (
-    <View className="bg-blue-500">
+    <View>
       <Header />
-      <Text>Bitch</Text>
+      <Text className="bg-pink-500">Index</Text>
     </View>
   );
 }
