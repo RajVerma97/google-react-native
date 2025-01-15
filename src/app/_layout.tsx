@@ -1,7 +1,7 @@
-import { Stack } from "expo-router/stack";
-import "../global.css";
+import { Stack } from 'expo-router/stack';
+import '../../global.css';
 export default function Layout() {
-  console.log("hello");
+  console.log('hello');
   return (
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

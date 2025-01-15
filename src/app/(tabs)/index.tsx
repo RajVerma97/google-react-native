@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import Header from '../../components/Header';
-import SearchForm from '@/src/components/SearchForm';
-import GoogleShortcuts from '@/src/components/GoogleShortcuts';
-import EnvironmentalMetrics from '@/src/app/components/EnvironmentalMetrics';
-import NewsFeed from '@/src/components/NewsFeed';
+import SearchForm from '@/components/SearchForm';
+import GoogleShortcuts from '@/components/GoogleShortcuts';
+import EnvironmentalMetrics from '@/components/EnvironmentalMetrics';
+import NewsFeed from '@/components/NewsFeed';
 
 export default function Tab() {
   return (

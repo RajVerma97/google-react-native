@@ -1,12 +1,11 @@
-import js from '@eslint/js';
-import tsParser from '@typescript-eslint/parser';
-import tsPlugin from '@typescript-eslint/eslint-plugin';
-import reactPlugin from 'eslint-plugin-react';
-import hooksPlugin from 'eslint-plugin-react-hooks';
-import globals from 'globals';
+const js = require('@eslint/js');
+const tsParser = require('@typescript-eslint/parser');
+const tsPlugin = require('@typescript-eslint/eslint-plugin');
+const reactPlugin = require('eslint-plugin-react');
+const hooksPlugin = require('eslint-plugin-react-hooks');
+const globals = require('globals');
 
-export default [
-  // Base ESLint recommended config
+module.exports = [
   js.configs.recommended,
 
   // TypeScript configuration for `src`
