@@ -1,6 +1,6 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import React from "react";
-import { View, Text } from "react-native";
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import React from 'react';
+import { View, Text } from 'react-native';
 
 export default function Header() {
   return (

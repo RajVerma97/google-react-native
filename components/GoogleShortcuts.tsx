@@ -1,6 +1,6 @@
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import React from "react";
-import { TouchableOpacity, View } from "react-native";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import React from 'react';
+import { TouchableOpacity, View } from 'react-native';
 
 type Shortcut = {
   slug: string;
@@ -12,28 +12,28 @@ type Shortcuts = Shortcut[];
 export default function GoogleShortcuts() {
   const shortcuts: Shortcuts = [
     {
-      slug: "search-by-image",
+      slug: 'search-by-image',
       icon: <MaterialIcons name="image-search" />,
       onClick: (slug) => {
         console.log(slug);
       },
     },
     {
-      slug: "language",
+      slug: 'language',
       icon: <MaterialIcons name="language" />,
       onClick: (slug) => {
         console.log(slug);
       },
     },
     {
-      slug: "education",
+      slug: 'education',
       icon: <MaterialIcons name="school" />,
       onClick: (slug) => {
         console.log(slug);
       },
     },
     {
-      slug: "music",
+      slug: 'music',
       icon: <MaterialIcons name="music-note" />,
       onClick: (slug) => {
         console.log(slug);
@@ -43,10 +43,7 @@ export default function GoogleShortcuts() {
   return (
     <View className="flex justify-between p-4">
       {shortcuts?.map((shortcut: Shortcut, index) => (
-        <TouchableOpacity
-          key={index}
-          onPress={() => shortcut.onClick(shortcut.slug)}
-        >
+        <TouchableOpacity key={index} onPress={() => shortcut.onClick(shortcut.slug)}>
           {shortcut.icon}
         </TouchableOpacity>
       ))}

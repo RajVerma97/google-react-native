@@ -1,6 +1,6 @@
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import React from "react";
-import { View, Text } from "react-native";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import React from 'react';
+import { View, Text } from 'react-native';
 
 type Metric = {
   title: string;
@@ -12,18 +12,18 @@ type Metrics = Array<Metric>;
 export default function EnvironmentalMetrics() {
   const metrics: Metrics = [
     {
-      title: "Gurugram",
-      value: "30",
+      title: 'Gurugram',
+      value: '30',
       icon: <MaterialIcons name="shield-moon" size={24} />,
     },
     {
-      title: "Air Quality:170",
-      value: "Moderate",
+      title: 'Air Quality:170',
+      value: 'Moderate',
       icon: <MaterialIcons name="waves" size={24} />,
     },
     {
-      title: "Humidity",
-      value: "30",
+      title: 'Humidity',
+      value: '30',
       icon: <MaterialIcons name="water-drop" size={24} />,
     },
   ];
