@@ -1,4 +1,5 @@
 import { Stack } from "expo-router/stack";
+import { View } from "react-native";
 import "../global.css";
 export default function Layout() {
   return (
