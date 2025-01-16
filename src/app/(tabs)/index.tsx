@@ -1,20 +1,27 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, ScrollView, Text, Image } from 'react-native';
 import Header from '../../components/Header';
 import SearchForm from '@/components/SearchForm';
 import GoogleShortcuts from '@/components/GoogleShortcuts';
 import EnvironmentalMetrics from '@/components/EnvironmentalMetrics';
 import NewsFeed from '@/components/NewsFeed';
+import GoogleLogoImage from '@assets/images/google-logo.png';
+import { SafeAreaView } from 'react-native';
 
 export default function Tab() {
   return (
-    <View className="p-8">
-      <Header />
-      <Text className="border-2 text-center mt-4 text-[4rem]">Google</Text>
-      <SearchForm />
-      <GoogleShortcuts />
-      <EnvironmentalMetrics />
-      <NewsFeed />
-    </View>
+    <SafeAreaView>
+      <ScrollView className="p-8 bg-[#1F2125]">
+        <Header />
+        <View className="flex justify-center items-center mt-8 text-center">
+          <Image source={GoogleLogoImage} />
+        </View>
+
+        <SearchForm />
+        <GoogleShortcuts />
+        <EnvironmentalMetrics />
+        <NewsFeed />
+      </ScrollView>
+    </SafeAreaView>
   );
 }

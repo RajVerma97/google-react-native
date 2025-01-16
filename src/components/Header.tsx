@@ -1,22 +1,22 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text } from 'react-native';
 import GoogleImage from '../../assets/images/google.svg';
+import GoogleGeminiImage from '../../assets/images/google-gemini.svg';
 
 export default function Header() {
   return (
     <View className="flex-row justify-between items-center">
       <View>
-        <MaterialIcons name="science" size={28} />
+        <MaterialIcons name="science" size={36} color="white" />
       </View>
-      <View className="flex-row items-center">
-        <View className="flex-row items-center">
-          <Image source={GoogleImage} />
-          <Text>Search</Text>
+      <View className="flex-row rounded-2xl bg-gray-500 p-2 items-center">
+        <View className="flex-row items-center mr-2 bg-gray-900 p-2 rounded-xl">
+          <GoogleImage width={24} height={24} />
+          <Text className="text-white">Search</Text>
         </View>
         <View>
-          <MaterialIcons name="star" size={22} />
+          <GoogleGeminiImage width={24} height={24} />
         </View>
       </View>
       <View>

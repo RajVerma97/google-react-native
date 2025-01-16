@@ -30,12 +30,12 @@ export default function EnvironmentalMetrics() {
   return (
     <View className="flex flex-row mt-4 justify-between items-center">
       {metrics?.map((metric: Metric, index) => (
-        <View key={index} className="p-4 border-2 rounded-2xl">
+        <View key={index} className="p-4 border-2 rounded-2xl border-gray-600">
           <View>
-            <Text>{metric.title}</Text>
+            <Text className="text-white">{metric.title}</Text>
           </View>
-          <View className="flex flex-row justify-between mt-4">
-            <Text>{metric.value}</Text>
+          <View className="flex flex-row justify-between items-center mt-4">
+            <Text className="text-white">{metric.value}</Text>
             <View>{metric.icon}</View>
           </View>
         </View>
