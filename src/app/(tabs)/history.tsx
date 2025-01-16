@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 export default function Tab() {
   return (
     <View>
-      <Text>History</Text>
+      <Text>HistoryText</Text>
     </View>
   );
 }

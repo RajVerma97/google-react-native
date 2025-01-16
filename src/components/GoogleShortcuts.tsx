@@ -4,47 +4,72 @@ import { TouchableOpacity, View } from 'react-native';
 
 type Shortcut = {
   slug: string;
-  icon: React.ReactElement;
+  iconName: string;
   onClick: (slug: string) => void;
+  bgColor: string;
+  iconColor: string;
 };
 
-type Shortcuts = Shortcut[];
+const SHORTCUT_ICON_SIZE = 34;
+
+type Shortcuts = Array<Shortcut>;
+
 export default function GoogleShortcuts() {
   const shortcuts: Shortcuts = [
     {
       slug: 'search-by-image',
-      icon: <MaterialIcons name="image-search" />,
+      iconName: 'image-search',
       onClick: (slug) => {
         console.log(slug);
       },
+      bgColor: '#4C4533',
+      iconColor: '#FFFFFF',
     },
     {
       slug: 'language',
-      icon: <MaterialIcons name="language" />,
+      iconName: 'language',
       onClick: (slug) => {
         console.log(slug);
       },
+      bgColor: '#383F4D',
+      iconColor: '#FFD700',
     },
     {
       slug: 'education',
-      icon: <MaterialIcons name="school" />,
+      iconName: 'school',
       onClick: (slug) => {
         console.log(slug);
       },
+      bgColor: '#36423B',
+      iconColor: '#00FF00',
     },
     {
       slug: 'music',
-      icon: <MaterialIcons name="music-note" />,
+      iconName: 'music-note',
       onClick: (slug) => {
         console.log(slug);
       },
+      bgColor: '#453134',
+      iconColor: '#FF69B4',
     },
   ];
+
   return (
-    <View className="flex justify-between p-4">
+    <View className="flex flex-row justify-between mt-4">
       {shortcuts?.map((shortcut: Shortcut, index) => (
-        <TouchableOpacity key={index} onPress={() => shortcut.onClick(shortcut.slug)}>
-          {shortcut.icon}
+        <TouchableOpacity
+          className="px-5 py-3 rounded-full"
+          style={{ backgroundColor: shortcut.bgColor }}
+          key={index}
+          onPress={() => shortcut.onClick(shortcut.slug)}
+          accessibilityRole="button"
+          accessibilityLabel={shortcut.slug}
+        >
+          <MaterialIcons
+            name={shortcut.iconName}
+            size={SHORTCUT_ICON_SIZE}
+            color={shortcut.iconColor}
+          />
         </TouchableOpacity>
       ))}
     </View>

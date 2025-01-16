@@ -8,10 +8,9 @@ import NewsFeed from '@/components/NewsFeed';
 
 export default function Tab() {
   return (
-    <View>
-      <Text>hellokko</Text>
+    <View className="p-8">
       <Header />
-      <Text className="bg-pink-500 mt-4 text-lg">Google</Text>
+      <Text className="border-2 text-center mt-4 text-[4rem]">Google</Text>
       <SearchForm />
       <GoogleShortcuts />
       <EnvironmentalMetrics />

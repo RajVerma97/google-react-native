@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View, Text } from 'react-native';
+import { Image, View, Text, ScrollView } from 'react-native';
 
 type NewsItem = {
   id: number;
@@ -119,7 +119,7 @@ const news: News = [
 
 export default function NewsFeed() {
   return (
-    <View>
+    <ScrollView>
       {news?.map((newsItem: NewsItem) => (
         <View key={newsItem.id}>
           <Image source={{ uri: newsItem.image }} />
@@ -133,6 +133,6 @@ export default function NewsFeed() {
           </View>
         </View>
       ))}
-    </View>
+    </ScrollView>
   );
 }
