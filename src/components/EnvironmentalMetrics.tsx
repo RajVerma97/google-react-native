@@ -17,8 +17,8 @@ export default function EnvironmentalMetrics() {
       icon: <MaterialIcons name="shield-moon" size={24} color={'#FFFFFF'} />,
     },
     {
-      title: 'Air Quality:170',
-      value: 'Moderate',
+      title: 'Air Quality',
+      value: '170',
       icon: <MaterialIcons name="waves" size={24} color={'#FDFF00'} />,
     },
     {
@@ -30,12 +30,12 @@ export default function EnvironmentalMetrics() {
   return (
     <View className="flex flex-row mt-4 justify-between items-center">
       {metrics?.map((metric: Metric, index) => (
-        <View key={index} className="p-4 border-2 rounded-2xl border-gray-600">
+        <View key={index} className="p-4 border rounded-2xl border-gray-600">
           <View>
-            <Text className="text-white">{metric.title}</Text>
+            <Text className="text-white font-inter">{metric.title}</Text>
           </View>
           <View className="flex flex-row justify-between items-center mt-4">
-            <Text className="text-white">{metric.value}</Text>
+            <Text className="text-white font-roboto font-medium text-xl">{metric.value}</Text>
             <View>{metric.icon}</View>
           </View>
         </View>

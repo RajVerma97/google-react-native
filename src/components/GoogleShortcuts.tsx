@@ -4,7 +4,7 @@ import { TouchableOpacity, View } from 'react-native';
 
 type Shortcut = {
   slug: string;
-  iconName: string;
+  iconName: keyof typeof MaterialIcons.glyphMap;
   onClick: (slug: string) => void;
   bgColor: string;
   iconColor: string;
@@ -20,7 +20,7 @@ export default function GoogleShortcuts() {
       slug: 'search-by-image',
       iconName: 'image-search',
       onClick: (slug) => {
-        console.log(slug);
+        console.log(`Clicked shortcut: ${slug}`);
       },
       bgColor: '#4C4533',
       iconColor: '#FFFFFF',
@@ -29,7 +29,7 @@ export default function GoogleShortcuts() {
       slug: 'language',
       iconName: 'language',
       onClick: (slug) => {
-        console.log(slug);
+        console.log(`Clicked shortcut: ${slug}`);
       },
       bgColor: '#383F4D',
       iconColor: '#FFD700',
@@ -38,7 +38,7 @@ export default function GoogleShortcuts() {
       slug: 'education',
       iconName: 'school',
       onClick: (slug) => {
-        console.log(slug);
+        console.log(`Clicked shortcut: ${slug}`);
       },
       bgColor: '#36423B',
       iconColor: '#00FF00',
@@ -47,7 +47,7 @@ export default function GoogleShortcuts() {
       slug: 'music',
       iconName: 'music-note',
       onClick: (slug) => {
-        console.log(slug);
+        console.log(`Clicked shortcut: ${slug}`);
       },
       bgColor: '#453134',
       iconColor: '#FF69B4',
