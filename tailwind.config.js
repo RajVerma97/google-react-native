@@ -4,7 +4,13 @@ module.exports = {
   presets: [require('nativewind/preset')],
   theme: {
     extend: {
-      fontFamily: {},
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
+        openSans: ['OpenSans', 'sans-serif'],
+      },
       colors: {
         primary: {
           100: '#F5F8FF',
@@ -17,6 +23,7 @@ module.exports = {
           800: '#364573',
           900: '#242B4D',
         },
+
         secondary: {
           100: '#F8F8F8',
           200: '#F1F1F1',

@@ -15,7 +15,7 @@ type NewsItem = {
 
 type News = Array<NewsItem>;
 
-const news: news = [
+const news: News = [
   {
     id: 1,
     image: 'https://www.sammyfans.com/wp-content/uploads/2024/12/now-bar-one-ui-7-img.jpg',
@@ -126,7 +126,7 @@ const news: news = [
 
 export default function NewsFeed() {
   return (
-    <View className="mt-8 grid gap-8">
+    <View className="mt-8 grid gap-8 font-poppins">
       {news?.map((newsItem: NewsItem) => (
         <TouchableOpacity key={newsItem.id} className="p-4 border border-gray-600 p-4 rounded-2xl">
           <Image source={{ uri: newsItem.image }} className="h-[15rem] rounded-2xl" />
