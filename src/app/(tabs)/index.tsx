@@ -5,7 +5,7 @@ import SearchForm from '@/components/SearchForm';
 import GoogleShortcuts from '@/components/GoogleShortcuts';
 import EnvironmentalMetrics from '@/components/EnvironmentalMetrics';
 import NewsFeed from '@/components/NewsFeed';
-import GoogleLogoImage from '@assets/images/google-logo.png';
+// import GoogleLogoImage from '../../../assets/images/';
 import { SafeAreaView } from 'react-native';
 
 export default function Tab() {
@@ -13,9 +13,15 @@ export default function Tab() {
     <SafeAreaView>
       <ScrollView className="p-8 bg-[#1F2125]">
         <Header />
-        <View className="flex justify-center items-center mt-8 text-center">
+        {/* <View className="flex justify-center items-center mt-8 text-center">
           <Image source={GoogleLogoImage} />
-        </View>
+        </View> */}
+        <Text
+          className="text-3xl text-white font-poppins-regular "
+          // style={{ fontFamily: 'Poppins-Regular' }}
+        >
+          Test
+        </Text>
 
         <SearchForm />
         <GoogleShortcuts />

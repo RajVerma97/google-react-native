@@ -5,11 +5,11 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        inter: ['Inter', 'sans-serif'],
-        roboto: ['Roboto', 'sans-serif'],
-        poppins: ['Poppins', 'sans-serif'],
-        montserrat: ['Montserrat', 'sans-serif'],
-        openSans: ['OpenSans', 'sans-serif'],
+        // inter: ['Inter', 'sans-serif'],
+        // roboto: ['Roboto', 'sans-serif'],
+        'poppins-regular': ['Poppins', 'sans-serif'],
+        // montserrat: ['Montserrat', 'sans-serif'],
+        // openSans: ['OpenSans', 'sans-serif'],
       },
       colors: {
         primary: {
