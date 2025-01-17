@@ -14,7 +14,7 @@ export default function BottomSheet({ isVisible, hideBottomSheet, translateY }: 
   }, []);
 
   return (
-    <Modal visible={isVisible} transparent animationType="none" onRequestClose={hideBottomSheet}>
+    <Modal visible={isVisible} transparent animationType="slide" onRequestClose={hideBottomSheet}>
       <TouchableOpacity className="flex-1 bg-black/50" activeOpacity={1} onPress={hideBottomSheet}>
         <Animated.View
           style={{ transform: [{ translateY }] }}
