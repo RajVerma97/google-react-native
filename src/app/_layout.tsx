@@ -4,18 +4,22 @@ import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import Poppins from '../../assets/fonts/Poppins/Poppins-Regular.ttf';
+import Inter from '../../assets/fonts/Inter/Inter-Regular.ttf';
+import Roboto from '../../assets/fonts/Roboto/Roboto-Regular.ttf';
+import Montserrat from '../../assets/fonts/Montserrat/Montserrat-Regular.ttf';
+import OpenSans from '../../assets/fonts/OpenSans/OpenSans-Regular.ttf';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
   const [fontsLoaded] = useFonts({
-    // Inter: require('../../assets/fonts/Inter/Inter-Regular.ttf'),
-    // Roboto: require('../../assets/fonts/Roboto/Roboto-Regular.ttf'),
+    Inter,
+    Roboto,
     Poppins,
-    // Poppins: require('../../assets/fonts/Poppins/Poppins-Regular.ttf'),
-    // Montserrat: require('../../assets/fonts/Montserrat/Montserrat-Regular.ttf'),
-    // OpenSans: require('../../assets/fonts/OpenSans/OpenSans-Regular.ttf'),
+    Montserrat,
+    OpenSans,
   });
+
   useEffect(() => {
     if (fontsLoaded) {
       SplashScreen.hideAsync();

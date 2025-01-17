@@ -16,12 +16,11 @@ export default function Tab() {
         {/* <View className="flex justify-center items-center mt-8 text-center">
           <Image source={GoogleLogoImage} />
         </View> */}
-        <Text
-          className="text-3xl text-white font-poppins-regular "
-          // style={{ fontFamily: 'Poppins-Regular' }}
-        >
-          Test
-        </Text>
+        <Text className="text-3xl text-white font-inter ">Inter</Text>
+        <Text className="text-3xl text-white font-roboto ">Roboto</Text>
+        <Text className="text-3xl text-white font-poppins-regular ">Poppins Regular</Text>
+        <Text className="text-3xl text-white font-montserrat ">Montserrat</Text>
+        <Text className="text-3xl text-white font-open-sans">Open sans</Text>
 
         <SearchForm />
         <GoogleShortcuts />

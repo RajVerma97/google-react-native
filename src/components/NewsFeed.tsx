@@ -126,20 +126,20 @@ const news: News = [
 
 export default function NewsFeed() {
   return (
-    <View className="mt-8 grid gap-8 font-poppins-regular">
+    <View className="mt-8 grid gap-8">
       {news?.map((newsItem: NewsItem) => (
         <TouchableOpacity key={newsItem.id} className="p-4 border border-gray-600 p-4 rounded-2xl">
           <Image source={{ uri: newsItem.image }} className="h-[15rem] rounded-2xl" />
           <View className="px-0 py-4">
-            <Text className="text-3xl capitalize font-semibold text-white">
+            <Text className="text-3xl capitalize  font-roboto text-white">
               {newsItem.title.substring(0, 40)}
             </Text>
 
-            <Text className="text-xl capitalize  mt-2 text-white">
+            <Text className="text-xl capitalize  mt-2 text-white font-roboto">
               {newsItem.description.substring(0, 60)}
             </Text>
             <View>
-              <Text className="font-medium capitalize text-xl text-gray-400 mt-8">
+              <Text className="font-medium  font-roboto capitalize text-xl text-gray-400 mt-8">
                 {newsItem.publishedDate}
               </Text>
             </View>
