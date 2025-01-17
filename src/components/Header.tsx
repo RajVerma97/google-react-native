@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Image, Text } from 'react-native';
-import GoogleImage from '@/assets/images/google.svg';
-import GoogleGeminiImage from '@/assets/images/google-gemini.svg';
-import BeakerImage from '@/assets/images/beaker.png';
+import GoogleImage from '../../assets/images/google.svg';
+import GoogleGeminiImage from '../../assets/images/google-gemini.svg';
+import BeakerImage from '../../assets/images/beaker.png';
 
 export default function Header() {
   return (
