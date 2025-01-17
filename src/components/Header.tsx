@@ -7,8 +7,8 @@ import BeakerImage from '../../assets/images/beaker.png';
 export default function Header() {
   return (
     <View className="flex-row justify-between items-center">
-      <View>
-        <Image source={BeakerImage} className="w-12 h-12" />
+      <View style={{ width: 36, height: 36 }}>
+        <Image source={BeakerImage} style={{ width: '100%', height: '100%' }} />
       </View>
       <View className="flex-row rounded-2xl bg-gray-500 p-2 items-center">
         <View className="flex-row items-center mr-4 bg-gray-900 p-2 rounded-xl">

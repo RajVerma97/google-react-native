@@ -10,7 +10,7 @@ import GoogleLogo from '@/components/GoogleLogo';
 
 export default function Tab() {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView className="p-8 bg-[#1F2125]">
         <Header />
         <GoogleLogo />
