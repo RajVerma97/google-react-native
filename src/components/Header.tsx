@@ -1,10 +1,13 @@
 import React from 'react';
-import { View, Image, Text } from 'react-native';
+import { useState } from 'react';
+import { View, Image, Text, TouchableOpacity, Easing, Animated } from 'react-native';
 import GoogleImage from '../../assets/images/google.svg';
 import GoogleGeminiImage from '../../assets/images/google-gemini.svg';
 import BeakerImage from '../../assets/images/beaker.png';
-
+import BottomSheet from '../components/BottomSheet';
+import useBottomSheet from '../hooks/useBottomSheet';
 export default function Header() {
+  const { isVisible, showBottomSheet, hideBottomSheet, translateY } = useBottomSheet();
   return (
     <View className="flex-row justify-between items-center">
       <View style={{ width: 36, height: 36 }}>
@@ -20,10 +23,18 @@ export default function Header() {
         </View>
       </View>
       <View>
-        <View className=" w-12 h-12 bg-[#79929E] rounded-full flex justify-center items-center">
+        <TouchableOpacity
+          onPress={showBottomSheet}
+          className=" w-12 h-12 bg-[#79929E] rounded-full flex justify-center items-center"
+        >
           <Text className="font-inter text-lg text-white">A</Text>
-        </View>
+        </TouchableOpacity>
       </View>
+      <BottomSheet
+        isVisible={isVisible}
+        hideBottomSheet={hideBottomSheet}
+        translateY={translateY}
+      />
     </View>
   );
 }
