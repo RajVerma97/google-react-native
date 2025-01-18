@@ -8,12 +8,14 @@ import NewsFeed from '@/components/NewsFeed';
 import { SafeAreaView } from 'react-native';
 import GoogleLogo from '@/components/GoogleLogo';
 import HorizontalDivider from '@/components/HorizontalDivider';
+import GoogleSignIn from '@/components/GoogleSignIn';
 
 export default function Tab() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView className="p-8 bg-[#1F2125]">
         <Header />
+        <GoogleSignIn />
         <GoogleLogo />
         <SearchForm />
         <GoogleShortcuts />
