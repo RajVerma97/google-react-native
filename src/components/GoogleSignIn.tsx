@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import React from 'react';
 import {
   GoogleSignin,
@@ -15,41 +15,39 @@ export default function GoogleSignIn() {
 
   useEffect(() => {
     GoogleSignin.configure({
-      webClientId: '294175185450-ek5nm54pm8nv4hgac65u8cs9lds1m4qk.apps.googleusercontent.com',
+      // webClientId: '294175185450-ek5nm54pm8nv4hgac65u8cs9lds1m4qk.apps.googleusercontent.com',
       iosClientId: 'com.googleusercontent.apps.294175185450-j5v8hi6mo00qvnj370kaf37hm3oni22q',
     });
   }, []);
 
   const signIn = async () => {
     try {
+      console.log('Sign in clicked');
       await GoogleSignin.hasPlayServices();
-      const response = await GoogleSignin.signIn();
-
-      if (isSuccessResponse(response)) {
-        console.log(response.data);
-        //setUser(response.data);
-      } else {
-        // sign in cancelled by the user
-      }
+      const userInfo = await GoogleSignin.signIn();
+      console.log('Sign in response:', userInfo);
+      setUser(userInfo.user); // Update user state with user info
     } catch (error) {
+      console.error('Sign in error:', error);
       if (isErrorWithCode(error)) {
         switch (error.code) {
+          case statusCodes.SIGN_IN_CANCELLED:
+            Alert.alert('Sign in was cancelled');
+            break;
           case statusCodes.IN_PROGRESS:
-            // sign in already ni progress
+            Alert.alert('Sign in is already in progress');
             break;
           case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-            // android only play services not available
+            Alert.alert('Google Play Services not available or outdated');
             break;
-
           default:
-          //some other error
+            Alert.alert('Something went wrong', error.message);
         }
       } else {
-        //an error that's not related togoogle sign in
+        Alert.alert('An unexpected error occurred');
       }
     }
   };
-
   const signOut = async () => {
     try {
       await GoogleSignin.signOut();
@@ -76,16 +74,6 @@ export default function GoogleSignIn() {
           onPress={signIn}
         />
       )}
-
-      <TouchableOpacity onPress={signIn}>
-        <GoogleImage width={28} height={28} />
-        <Text>Sign in with Google</Text>
-      </TouchableOpacity>
-      {/* <GoogleSigninButton */}
-      {/*   size={GoogleSigninButton.Size.Wide} */}
-      {/*   color={GoogleSigninButton.Color.Dark} */}
-      {/*   onPress={signIn} */}
-      {/* /> */}
     </View>
   );
 }
