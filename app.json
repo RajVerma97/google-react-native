@@ -11,16 +11,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.princevegeta.googlereactnative",
-      "googleServicesFile": "./GoogleService-Info.plist",
-      "infoPlist": {
-        "CFBundleURLTypes": [
-          {
-            "CFBundleURLSchemes": [
-              "com.googleusercontent.apps.294175185450-j5v8hi6mo00qvnj370kaf37hm3oni22q"
-            ]
-          }
-        ]
-      }
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "package": "com.princevegeta.googlereactnative",
