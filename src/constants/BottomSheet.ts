@@ -1,0 +1,2 @@
+export const BOTTOM_SHEET_TRANSLATE_Y = 100;
+export const BOTTOM_SHEET_DURATION_MS = 300;

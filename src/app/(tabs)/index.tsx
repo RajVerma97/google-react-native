@@ -7,6 +7,7 @@ import EnvironmentalMetrics from '@/components/EnvironmentalMetrics';
 import NewsFeed from '@/components/NewsFeed';
 import { SafeAreaView } from 'react-native';
 import GoogleLogo from '@/components/GoogleLogo';
+import HorizontalDivider from '@/components/HorizontalDivider';
 
 export default function Tab() {
   return (
@@ -16,6 +17,7 @@ export default function Tab() {
         <GoogleLogo />
         <SearchForm />
         <GoogleShortcuts />
+        <HorizontalDivider />
         <EnvironmentalMetrics />
         <NewsFeed />
       </ScrollView>
