@@ -10,14 +10,16 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.princevegeta.googlereactnative"
+      "bundleIdentifier": "com.princevegeta.googlereactnative",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.princevegeta.googlereactnative"
+      "package": "com.princevegeta.googlereactnative",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "bundler": "metro",

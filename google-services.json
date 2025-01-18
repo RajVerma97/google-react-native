@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "294175185450",
+    "project_id": "react-native-60072",
+    "storage_bucket": "react-native-60072.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294175185450:android:c9899917e2f635e0668153",
+        "android_client_info": {
+          "package_name": "com.princevegeta.googlereactnative"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "294175185450-5au1ovcoke1qt9mjq9kadktkv245t4hi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.princevegeta.googlereactnative",
+            "certificate_hash": "42e1700a7d0fba6a16861c9b3b6e006d8dd8bf37"
+          }
+        },
+        {
+          "client_id": "294175185450-ek5nm54pm8nv4hgac65u8cs9lds1m4qk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6PKEi7INCXH1zAEmlr09KcT37ch4MvPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "294175185450-ek5nm54pm8nv4hgac65u8cs9lds1m4qk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "294175185450-j5v8hi6mo00qvnj370kaf37hm3oni22q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.princevegeta.googlereactnative"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
