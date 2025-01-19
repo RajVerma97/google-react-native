@@ -1,7 +1,16 @@
 import React from 'react';
-import { TextInput, TouchableOpacity, View } from 'react-native';
+import { useState } from 'react';
+import {
+  NativeSyntheticEvent,
+  TextInput,
+  TextInputChangeEventData,
+  TouchableOpacity,
+  View,
+  Text,
+} from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { router } from 'expo-router';
+import { useGoogleTextSearch } from '@/hooks/useGoogleTextSearch';
 
 export enum MODE {
   SEARCH = 'SEARCH',
@@ -11,6 +20,10 @@ type SearchFormProps = {
   mode?: MODE;
 };
 export default function SearchForm({ mode }: SearchFormProps) {
+  const [query, setQuery] = useState('');
+
+  const { data } = useGoogleTextSearch(query);
+  console.log(data);
   const handleSearch = () => {
     if (mode === MODE.SEARCH) {
       return;
@@ -21,14 +34,18 @@ export default function SearchForm({ mode }: SearchFormProps) {
     }, 200);
   };
 
-  const handleSubmit = () => {
-    console.log('handle submit');
-  };
+  const handleSubmit = () => {};
   const goBack = () => {
     router.push('/');
   };
+  const handleChange = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+    setQuery(e.nativeEvent.text);
+  };
   return (
     <View className="flex flex-row justify-between bg-[#2F3133] items-center p-4   mt-8 rounded-full">
+      <View>
+        <Text className="text-white text-2xl">{query}</Text>
+      </View>
       <View className="flex-row">
         {mode === MODE.SEARCH ? (
           <TouchableOpacity onPress={goBack}>
@@ -41,6 +58,8 @@ export default function SearchForm({ mode }: SearchFormProps) {
           className="ml-2 text-xl text-white"
           placeholder={'Search'}
           onFocus={handleSearch}
+          value={query}
+          onChange={handleChange}
           onSubmitEditing={handleSubmit}
         />
       </View>

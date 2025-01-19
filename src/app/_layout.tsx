@@ -8,6 +8,7 @@ import Inter from '../..//assets/fonts/Inter/Inter-Regular.ttf';
 import Roboto from '../../assets/fonts/Roboto/Roboto-Regular.ttf';
 import Montserrat from '../../assets/fonts/Montserrat/Montserrat-Regular.ttf';
 import OpenSans from '../../assets/fonts/OpenSans/OpenSans-Regular.ttf';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -30,10 +31,15 @@ export default function Layout() {
     return null;
   }
 
+  const queryClient = new QueryClient();
+
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="search" options={{ headerShown: false }} />
-    </Stack>
+    <QueryClientProvider client={queryClient}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="search" options={{ headerShown: false }} />
+        <Stack.Screen name="webview" options={{ headerShown: false }} />,
+      </Stack>
+    </QueryClientProvider>
   );
 }
