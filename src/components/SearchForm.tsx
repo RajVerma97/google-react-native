@@ -11,6 +11,7 @@ import {
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { router } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
+import { Image } from 'react-native';
 
 export enum MODE {
   SEARCH = 'SEARCH',
@@ -19,9 +20,16 @@ export enum MODE {
 type SearchFormProps = {
   mode?: MODE;
 };
+
+enum SEARCHTYPE {
+  TEXT = 'TEXT',
+  IMAGE = 'IMAGE',
+}
 export default function SearchForm({ mode }: SearchFormProps) {
   const [query, setQuery] = useState('');
   const [showWebView, setShowWebView] = useState(false);
+  const [pickedImage, setPickedImage] = useState<string | null>(null);
+  const [searchType, setSearchType] = useState<SEARCHTYPE>(SEARCHTYPE.TEXT);
 
   const handleSearch = () => {
     if (mode === MODE.SEARCH) {
@@ -35,6 +43,7 @@ export default function SearchForm({ mode }: SearchFormProps) {
 
   const handleSubmit = () => {
     console.log('handle submit');
+    setSearchType(SEARCHTYPE.TEXT);
     setShowWebView(true);
   };
   const goBack = () => {
@@ -46,7 +55,16 @@ export default function SearchForm({ mode }: SearchFormProps) {
 
   useEffect(() => {
     if (showWebView) {
-      const uri = `https://google.com/search?q=${query}`;
+      let uri: string;
+      if (searchType === SEARCHTYPE.TEXT) {
+        uri = `https://google.com/search?q=${query}`;
+      } else if (searchType === SEARCHTYPE.IMAGE) {
+        uri =
+          'https://lens.google.com/uploadbyurl?url=https%3A%2F%2Ftechcrunch.com%2Fwp-content%2Fuploads%2F2025%2F01%2FGettyImages-2181313521.jpg';
+      } else {
+        console.error('Invalid search type or missing image');
+        return;
+      }
       const encodedUri = encodeURIComponent(uri as string);
       if (Platform.OS === 'android' || Platform.OS === 'ios') {
         router.push({
@@ -57,19 +75,39 @@ export default function SearchForm({ mode }: SearchFormProps) {
         window.location.href = uri;
       }
     }
-  }, [showWebView, query]);
+  }, [showWebView, query, searchType]);
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ['images', 'videos'],
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    console.log(result);
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ['images'],
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+        base64: true,
+      });
+
+      if (result.assets && !result.canceled) {
+        const uri = result.assets[0].uri;
+        console.log(uri);
+        setSearchType(SEARCHTYPE.IMAGE);
+        setShowWebView(true);
+        setPickedImage(uri);
+      }
+    } catch (error) {
+      console.error('Error picking image: ', error);
+    }
   };
   return (
     <View className="flex flex-row justify-between bg-[#2F3133] items-center p-4   mt-8 rounded-full">
+      {pickedImage && (
+        <Image
+          source={{
+            uri: pickedImage,
+          }}
+          style={{ height: 300, width: 400 }}
+        />
+      )}
       <View className="flex-row">
         {mode === MODE.SEARCH ? (
           <TouchableOpacity onPress={goBack}>
