@@ -38,7 +38,7 @@ export default function Layout() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="search" options={{ headerShown: false }} />
-        <Stack.Screen name="webview" options={{ headerShown: false }} />,
+        {/* <Stack.Screen name="[uri]" options={{ headerShown: false }} />, */}
       </Stack>
     </QueryClientProvider>
   );

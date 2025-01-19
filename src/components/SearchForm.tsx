@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import {
   NativeSyntheticEvent,
@@ -6,11 +6,10 @@ import {
   TextInputChangeEventData,
   TouchableOpacity,
   View,
-  Text,
+  Platform,
 } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { router } from 'expo-router';
-import { useGoogleTextSearch } from '@/hooks/useGoogleTextSearch';
 
 export enum MODE {
   SEARCH = 'SEARCH',
@@ -21,9 +20,8 @@ type SearchFormProps = {
 };
 export default function SearchForm({ mode }: SearchFormProps) {
   const [query, setQuery] = useState('');
+  const [showWebView, setShowWebView] = useState(false);
 
-  const { data } = useGoogleTextSearch(query);
-  console.log(data);
   const handleSearch = () => {
     if (mode === MODE.SEARCH) {
       return;
@@ -34,18 +32,33 @@ export default function SearchForm({ mode }: SearchFormProps) {
     }, 200);
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    console.log('handle submit');
+    setShowWebView(true);
+  };
   const goBack = () => {
     router.push('/');
   };
   const handleChange = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
     setQuery(e.nativeEvent.text);
   };
+
+  useEffect(() => {
+    if (showWebView) {
+      const uri = `https://google.com/search?q=${query}`;
+      const encodedUri = encodeURIComponent(uri as string);
+      if (Platform.OS === 'android' || Platform.OS === 'ios') {
+        router.push({
+          pathname: '/webview/[uri]',
+          params: { uri: encodedUri },
+        });
+      } else {
+        window.location.href = uri;
+      }
+    }
+  }, [showWebView, query]);
   return (
     <View className="flex flex-row justify-between bg-[#2F3133] items-center p-4   mt-8 rounded-full">
-      <View>
-        <Text className="text-white text-2xl">{query}</Text>
-      </View>
       <View className="flex-row">
         {mode === MODE.SEARCH ? (
           <TouchableOpacity onPress={goBack}>
