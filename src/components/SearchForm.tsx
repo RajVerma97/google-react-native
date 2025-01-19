@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { router } from 'expo-router';
+import * as ImagePicker from 'expo-image-picker';
 
 export enum MODE {
   SEARCH = 'SEARCH',
@@ -57,6 +58,16 @@ export default function SearchForm({ mode }: SearchFormProps) {
       }
     }
   }, [showWebView, query]);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images', 'videos'],
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    console.log(result);
+  };
   return (
     <View className="flex flex-row justify-between bg-[#2F3133] items-center p-4   mt-8 rounded-full">
       <View className="flex-row">
@@ -78,8 +89,12 @@ export default function SearchForm({ mode }: SearchFormProps) {
       </View>
 
       <View className="flex flex-row justify-center items-center ">
-        <MaterialIcons name="mic" size={26} color="white" className="mr-2" />
-        <MaterialIcons name="image-search" size={26} color="white" />
+        <TouchableOpacity>
+          <MaterialIcons name="mic" size={26} color="white" className="mr-2" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={pickImage}>
+          <MaterialIcons name="image-search" size={26} color="white" />
+        </TouchableOpacity>
       </View>
     </View>
   );
