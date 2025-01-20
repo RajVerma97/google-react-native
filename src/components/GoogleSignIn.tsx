@@ -5,13 +5,10 @@ import {
   GoogleSignin,
   GoogleSigninButton,
   isErrorWithCode,
-  isSuccessResponse,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-import GoogleImage from '../../assets/images/google.svg';
 export default function GoogleSignIn() {
   const [user, setUser] = useState(null);
-  console.log(user);
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -22,13 +19,10 @@ export default function GoogleSignIn() {
 
   const signIn = async () => {
     try {
-      console.log('Sign in clicked');
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log('Sign in response:', userInfo);
       setUser(userInfo.user); // Update user state with user info
     } catch (error) {
-      console.error('Sign in error:', error);
       if (isErrorWithCode(error)) {
         switch (error.code) {
           case statusCodes.SIGN_IN_CANCELLED:

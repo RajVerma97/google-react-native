@@ -8,7 +8,6 @@ const globals = require('globals');
 module.exports = [
   js.configs.recommended,
 
-  // TypeScript configuration for `src`
   {
     files: ['src/**/*.{ts,tsx}'],
     languageOptions: {
@@ -21,7 +20,7 @@ module.exports = [
       },
       globals: {
         ...globals.browser,
-        __d: 'readonly', // Add __d as a global variable
+        __d: 'readonly',
       },
     },
     plugins: {
@@ -41,19 +40,18 @@ module.exports = [
     },
   },
 
-  // Node.js configuration for config files and scripts
   {
     files: ['babel.config.js', 'metro.config.js', 'tailwind.config.js', 'scripts/**/*.js'],
     languageOptions: {
       ecmaVersion: 'latest',
-      sourceType: 'script', // Use CommonJS
+      sourceType: 'script',
       globals: {
-        ...globals.node, // Add Node.js globals
+        ...globals.node,
       },
     },
     rules: {
-      'no-undef': 'off', // Disable no-undef for Node.js files
-      'no-console': 'off', // Disable no-console for scripts
+      'no-undef': 'off',
+      'no-console': 'off',
     },
   },
 ];

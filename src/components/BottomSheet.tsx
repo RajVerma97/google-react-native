@@ -1,8 +1,10 @@
 import React, { useCallback } from 'react';
-import { View, Modal, TouchableOpacity, Animated, Text, Image, ScrollView } from 'react-native';
+import { View, Modal, TouchableOpacity, Animated, Text, Image } from 'react-native';
 import HorizontalDivider from '@components/HorizontalDivider';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import GoogleLogo from '../../assets/images/google-logo.png';
+import { SETTINGS } from '@/data/bottomsheet';
+import { SettingItem } from '@/types/bottomsheet';
 
 type BottomSheetProps = {
   isVisible: boolean;
@@ -10,53 +12,6 @@ type BottomSheetProps = {
   translateY: Animated.Value;
 };
 
-type SettingItem = {
-  icon: React.ReactElement;
-  text: string;
-};
-
-type Settings = Array<SettingItem>;
-
-const SETTINGS: Settings = [
-  {
-    icon: <MaterialIcons name="visibility" color="white" size={28} />,
-    text: 'turn on incognito',
-  },
-
-  {
-    icon: <MaterialIcons name="history" color="white" size={28} />,
-    text: 'search history',
-  },
-
-  {
-    icon: <MaterialIcons name="safety-check" color="white" size={28} />,
-    text: 'safe search',
-  },
-  {
-    icon: <MaterialIcons name="interests" color="white" size={28} />,
-    text: 'interests',
-  },
-  {
-    icon: <MaterialIcons name="key" color="white" size={28} />,
-    text: 'passwords',
-  },
-  {
-    icon: <MaterialIcons name="account-circle" color="white" size={28} />,
-    text: 'your profile',
-  },
-  {
-    icon: <MaterialIcons name="star" color="white" size={28} />,
-    text: 'search personalisation',
-  },
-  {
-    icon: <MaterialIcons name="settings" color="white" size={28} />,
-    text: 'settings',
-  },
-  {
-    icon: <MaterialIcons name="help" color="white" size={28} />,
-    text: 'help and feedback',
-  },
-];
 export default function BottomSheet({ isVisible, hideBottomSheet, translateY }: BottomSheetProps) {
   const handleContentPress = useCallback((e: any) => {
     e.stopPropagation();
@@ -124,7 +79,7 @@ export default function BottomSheet({ isVisible, hideBottomSheet, translateY }: 
                 {SETTINGS?.map((settingItem: SettingItem, index) => (
                   <View key={index} style={{ flex: 1 }}>
                     <TouchableOpacity className="flex flex-row items-center">
-                      {settingItem.icon}
+                      <MaterialIcons name={settingItem.iconName} color="white" size={28} />
                       <Text className="w-5/6 text-white font-inter  capitalize ml-4">
                         {settingItem.text}
                       </Text>

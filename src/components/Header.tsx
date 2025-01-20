@@ -1,11 +1,11 @@
 import React from 'react';
-import { useState } from 'react';
-import { View, Image, Text, TouchableOpacity, Easing, Animated } from 'react-native';
+import { View, Image, Text, TouchableOpacity } from 'react-native';
 import GoogleImage from '../../assets/images/google.svg';
 import GoogleGeminiImage from '../../assets/images/google-gemini.svg';
 import BeakerImage from '../../assets/images/beaker.png';
-import BottomSheet from '../components/BottomSheet';
-import useBottomSheet from '../hooks/useBottomSheet';
+import useBottomSheet from '@/hooks/useBottomSheet';
+import BottomSheet from './BottomSheet';
+
 export default function Header() {
   const { isVisible, showBottomSheet, hideBottomSheet, translateY } = useBottomSheet();
   return (

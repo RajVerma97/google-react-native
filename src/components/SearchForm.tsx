@@ -37,14 +37,12 @@ export default function SearchForm({ mode }: SearchFormProps) {
     if (mode === MODE.SEARCH) {
       return;
     }
-    console.log('hello search');
     setTimeout(() => {
       router.push('/search');
     }, 200);
   };
 
   const handleSubmit = () => {
-    console.log('handle submit');
     setSearchType(SEARCHTYPE.TEXT);
     setShowWebView(true);
   };
@@ -106,7 +104,7 @@ export default function SearchForm({ mode }: SearchFormProps) {
   };
   return (
     <View className="flex flex-row justify-between bg-[#2F3133] items-center p-4   mt-8 rounded-full">
-      <View className="flex-row">
+      <View className="flex flex-row items-center">
         {mode === MODE.SEARCH ? (
           <TouchableOpacity onPress={goBack}>
             <MaterialIcons name="arrow-back" size={26} color="gray" />
@@ -115,7 +113,7 @@ export default function SearchForm({ mode }: SearchFormProps) {
           <MaterialIcons name="search" size={26} color="gray" />
         )}
         <TextInput
-          className="ml-2 text-xl text-white"
+          className="ml-2 text-xl text-white  w-60 md:w-[1000]"
           placeholder={'Search'}
           onFocus={handleSearch}
           value={query}
@@ -125,15 +123,15 @@ export default function SearchForm({ mode }: SearchFormProps) {
       </View>
 
       <View className="flex flex-row justify-center items-center ">
-        <TouchableOpacity>
-          <MaterialIcons name="mic" size={26} color="white" className="mr-2" />
+        <TouchableOpacity className="w-8 mr-2">
+          <MaterialIcons name="mic" size={26} color="white" />
         </TouchableOpacity>
         {!uploading ? (
-          <TouchableOpacity onPress={pickImage}>
+          <TouchableOpacity onPress={pickImage} className="w-8">
             <MaterialIcons name="image-search" size={26} color="white" />
           </TouchableOpacity>
         ) : (
-          <View>
+          <View className="w-8">
             <ActivityIndicator size="small" color="white" />
           </View>
         )}

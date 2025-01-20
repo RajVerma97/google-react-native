@@ -1,58 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
-import SearchForm from '../components/SearchForm';
-import { MODE } from '../components/SearchForm';
+import SearchForm from '@components/SearchForm';
+import { MODE } from '@components/SearchForm';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons.js';
-
-type SearchResultItem = {
-  id: number;
-  text: string;
-};
-
-type SearchResults = Array<SearchResultItem>;
-
-const SEARCH_RESULTS: SearchResults = [
-  {
-    id: 1,
-    text: 'watch black panther',
-  },
-  {
-    id: 2,
-    text: 'best restaurants near me',
-  },
-  {
-    id: 3,
-    text: 'how to learn React Native',
-  },
-  {
-    id: 4,
-    text: 'weather in New York today',
-  },
-  {
-    id: 5,
-    text: 'latest iPhone reviews',
-  },
-  {
-    id: 6,
-    text: 'how to bake a chocolate cake',
-  },
-  {
-    id: 7,
-    text: 'upcoming Marvel movies',
-  },
-  {
-    id: 8,
-    text: 'how to fix a leaky faucet',
-  },
-  {
-    id: 9,
-    text: 'best hiking trails in Colorado',
-  },
-  {
-    id: 10,
-    text: 'how to invest in stocks',
-  },
-];
+import { SEARCH_RESULTS } from '@/data/search-results';
+import { SearchResultItem } from '@/types/search-results';
 
 export default function Search() {
   return (
