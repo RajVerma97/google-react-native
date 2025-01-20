@@ -7,11 +7,13 @@ import {
   TouchableOpacity,
   View,
   Platform,
+  Image,
 } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { router } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
-import { Image } from 'react-native';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { storage } from '../utils/firebase';
 
 export enum MODE {
   SEARCH = 'SEARCH',
@@ -77,6 +79,19 @@ export default function SearchForm({ mode }: SearchFormProps) {
     }
   }, [showWebView, query, searchType]);
 
+  const uploadImage = async (path: string, uri: string) => {
+    try {
+      const response = await fetch(uri);
+      const blob = await response.blob();
+      const storageRef = ref(storage, path); // Use the ref function from Firebase Storage
+      await uploadBytes(storageRef, blob); // Use the uploadBytes function
+      const downloadURL = await getDownloadURL(storageRef); // Use the getDownloadURL function
+      return downloadURL;
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      throw error;
+    }
+  };
   const pickImage = async () => {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -88,11 +103,16 @@ export default function SearchForm({ mode }: SearchFormProps) {
       });
 
       if (result.assets && !result.canceled) {
-        const uri = result.assets[0].uri;
-        console.log(uri);
-        setSearchType(SEARCHTYPE.IMAGE);
-        setShowWebView(true);
-        setPickedImage(uri);
+        const asset = result.assets[0];
+        const fileName = asset.fileName || `image - ${Date.now()}.jpg`;
+        const uri = asset.uri;
+
+        const downloadURL = await uploadImage(fileName, uri);
+
+        console.log('Image uploaded successfully with url', downloadURL);
+        //setSearchType(SEARCHTYPE.IMAGE);
+        // setShowWebView(true);
+        //setPickedImage(uri);
       }
     } catch (error) {
       console.error('Error picking image: ', error);
