@@ -40,7 +40,18 @@
         }
       ],
       ["@react-native-google-signin/google-signin"],
-      ["expo-image-picker"]
+      ["expo-image-picker"],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ],
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      "@react-native-firebase/storage"
     ],
     "experiments": {
       "typedRoutes": true
