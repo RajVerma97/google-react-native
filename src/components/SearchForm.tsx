@@ -7,13 +7,12 @@ import {
   TouchableOpacity,
   View,
   Platform,
-  Image,
+  ActivityIndicator,
 } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { router } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { storage } from '../utils/firebase';
+import { uploadImageToCloudinary } from '@/utils/cloundinary';
 
 export enum MODE {
   SEARCH = 'SEARCH',
@@ -30,8 +29,9 @@ enum SEARCHTYPE {
 export default function SearchForm({ mode }: SearchFormProps) {
   const [query, setQuery] = useState('');
   const [showWebView, setShowWebView] = useState(false);
-  const [pickedImage, setPickedImage] = useState<string | null>(null);
   const [searchType, setSearchType] = useState<SEARCHTYPE>(SEARCHTYPE.TEXT);
+  const [downloadImageUrl, setDownloadImageUrl] = useState<null | string>(null);
+  const [uploading, setUploading] = useState(false);
 
   const handleSearch = () => {
     if (mode === MODE.SEARCH) {
@@ -61,8 +61,7 @@ export default function SearchForm({ mode }: SearchFormProps) {
       if (searchType === SEARCHTYPE.TEXT) {
         uri = `https://google.com/search?q=${query}`;
       } else if (searchType === SEARCHTYPE.IMAGE) {
-        uri =
-          'https://lens.google.com/uploadbyurl?url=https%3A%2F%2Ftechcrunch.com%2Fwp-content%2Fuploads%2F2025%2F01%2FGettyImages-2181313521.jpg';
+        uri = `https://lens.google.com/uploadbyurl?url=${downloadImageUrl}`;
       } else {
         console.error('Invalid search type or missing image');
         return;
@@ -77,21 +76,8 @@ export default function SearchForm({ mode }: SearchFormProps) {
         window.location.href = uri;
       }
     }
-  }, [showWebView, query, searchType]);
+  }, [showWebView, query, searchType, downloadImageUrl]);
 
-  const uploadImage = async (path: string, uri: string) => {
-    try {
-      const response = await fetch(uri);
-      const blob = await response.blob();
-      const storageRef = ref(storage, path); // Use the ref function from Firebase Storage
-      await uploadBytes(storageRef, blob); // Use the uploadBytes function
-      const downloadURL = await getDownloadURL(storageRef); // Use the getDownloadURL function
-      return downloadURL;
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      throw error;
-    }
-  };
   const pickImage = async () => {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -104,15 +90,15 @@ export default function SearchForm({ mode }: SearchFormProps) {
 
       if (result.assets && !result.canceled) {
         const asset = result.assets[0];
-        const fileName = asset.fileName || `image - ${Date.now()}.jpg`;
         const uri = asset.uri;
 
-        const downloadURL = await uploadImage(fileName, uri);
+        setUploading(true);
+        const downloadURL = await uploadImageToCloudinary(uri);
+        setUploading(false);
 
-        console.log('Image uploaded successfully with url', downloadURL);
-        //setSearchType(SEARCHTYPE.IMAGE);
-        // setShowWebView(true);
-        //setPickedImage(uri);
+        setDownloadImageUrl(downloadURL);
+        setSearchType(SEARCHTYPE.IMAGE);
+        setShowWebView(true);
       }
     } catch (error) {
       console.error('Error picking image: ', error);
@@ -120,14 +106,6 @@ export default function SearchForm({ mode }: SearchFormProps) {
   };
   return (
     <View className="flex flex-row justify-between bg-[#2F3133] items-center p-4   mt-8 rounded-full">
-      {pickedImage && (
-        <Image
-          source={{
-            uri: pickedImage,
-          }}
-          style={{ height: 300, width: 400 }}
-        />
-      )}
       <View className="flex-row">
         {mode === MODE.SEARCH ? (
           <TouchableOpacity onPress={goBack}>
@@ -150,9 +128,15 @@ export default function SearchForm({ mode }: SearchFormProps) {
         <TouchableOpacity>
           <MaterialIcons name="mic" size={26} color="white" className="mr-2" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={pickImage}>
-          <MaterialIcons name="image-search" size={26} color="white" />
-        </TouchableOpacity>
+        {!uploading ? (
+          <TouchableOpacity onPress={pickImage}>
+            <MaterialIcons name="image-search" size={26} color="white" />
+          </TouchableOpacity>
+        ) : (
+          <View>
+            <ActivityIndicator size="small" color="white" />
+          </View>
+        )}
       </View>
     </View>
   );
