@@ -1,72 +1,60 @@
-import { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  isErrorWithCode,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
+import { useState, useEffect } from 'react';
+import { getAuth, signOut, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth } from '../utils/firebase';
+
 export default function GoogleSignIn() {
   const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    GoogleSignin.configure({
-      // webClientId: '294175185450-ek5nm54pm8nv4hgac65u8cs9lds1m4qk.apps.googleusercontent.com',
-      iosClientId: 'com.googleusercontent.apps.294175185450-j5v8hi6mo00qvnj370kaf37hm3oni22q',
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
-  const signIn = async () => {
+  const signInWithGoogle = async () => {
     try {
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
-      setUser(userInfo.user); // Update user state with user info
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential?.accessToken;
+      const userInfo = result.user;
+
+      setUser(userInfo);
     } catch (error) {
-      if (isErrorWithCode(error)) {
-        switch (error.code) {
-          case statusCodes.SIGN_IN_CANCELLED:
-            Alert.alert('Sign in was cancelled');
-            break;
-          case statusCodes.IN_PROGRESS:
-            Alert.alert('Sign in is already in progress');
-            break;
-          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-            Alert.alert('Google Play Services not available or outdated');
-            break;
-          default:
-            Alert.alert('Something went wrong', error.message);
-        }
-      } else {
-        Alert.alert('An unexpected error occurred');
-      }
+      console.error('Sign in error: ', error);
     }
   };
-  const signOut = async () => {
+
+  const handleLogout = async () => {
     try {
-      await GoogleSignin.signOut();
+      await signOut(auth);
       setUser(null);
+      setError(null);
     } catch (error) {
-      console.log(error);
+      setError('Error signing out: ' + error.message);
     }
   };
   return (
-    <View className="bg-blue-500 h-[10rem]">
-      <Text>Google Sign-In</Text>
+    <View>
+      {error && <Text className="text-red-500 mb-4">{error}</Text>}
       {user ? (
         <View>
-          {/* <Text>Welcome, {user.name}</Text> */}
-          {/* <Text>Email: {user.email}</Text> */}
-          <TouchableOpacity onPress={signOut}>
-            <Text className="text-white">Sign Out</Text>
+          <Text className="text-white">{JSON.stringify(user)}</Text>
+          <TouchableOpacity onPress={handleLogout}>
+            <Text className="text-white">Logout</Text>
           </TouchableOpacity>
         </View>
       ) : (
-        <GoogleSigninButton
-          size={GoogleSigninButton.Size.Wide}
-          color={GoogleSigninButton.Color.Dark}
-          onPress={signIn}
-        />
+        <TouchableOpacity onPress={signInWithGoogle}>
+          <Text className="text-white">google sign in</Text>
+        </TouchableOpacity>
       )}
     </View>
   );
