@@ -10,12 +10,10 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.princevegeta.googlereactnative",
-      "googleServicesFile": "./GoogleService-Info.plist"
+      "bundleIdentifier": "com.princevegeta.googlereactnative"
     },
     "android": {
-      "package": "com.princevegeta.googlereactnative",
-      "googleServicesFile": "./google-services.json"
+      "package": "com.princevegeta.googlereactnative"
     },
     "web": {
       "bundler": "metro",
@@ -39,18 +37,7 @@
           "fonts": ["./assets/fonts/Poppins/Poppins-Regular.ttf"]
         }
       ],
-      ["@react-native-google-signin/google-signin"],
-      ["expo-image-picker"],
-      [
-        "expo-build-properties",
-        {
-          "ios": {
-            "useFrameworks": "static"
-          }
-        }
-      ],
-      ["@react-native-firebase/app"],
-      ["@react-native-firebase/auth"]
+      ["expo-image-picker"]
     ],
     "experiments": {
       "typedRoutes": true
