@@ -2,8 +2,8 @@ import axios from 'axios';
 import { Platform } from 'react-native';
 import * as FileSystem from 'expo-file-system';
 
-const CLOUD_NAME = process.env.EXPO_CLOUDINARY_CLOUD_NAME;
-const UPLOAD_PRESET = process.env.EXPO_CLOUDINARY_UPLOAD_PRESENT;
+const CLOUD_NAME = process.env.EXPO_PUBLIC_CLOUDINARY_CLOUD_NAME;
+const UPLOAD_PRESET = process.env.EXPO_PUBLIC_CLOUDINARY_UPLOAD_PRESENT;
 
 export const uploadImageToCloudinary = async (imageUri: string) => {
   const apiUrl = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
