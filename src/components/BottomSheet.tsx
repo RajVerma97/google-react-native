@@ -7,8 +7,7 @@ import GoogleLogo from '../../assets/images/google-logo.png';
 import { SETTINGS } from '@/data/bottomsheet';
 import { SettingItem } from '@/types/bottomsheet';
 import { auth } from '@utils/firebase';
-import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
-
+import { GoogleAuthProvider, signOut, signInWithPopup } from 'firebase/auth';
 import useUser from '@/hooks/useUser';
 
 type BottomSheetProps = {
@@ -20,7 +19,7 @@ type BottomSheetProps = {
 export default function BottomSheet({ isVisible, hideBottomSheet, translateY }: BottomSheetProps) {
   const { user } = useUser();
 
-  const [_, setError] = useState<string | null>(null);
+  const [, setError] = useState<string | null>(null);
 
   const handleContentPress = useCallback((e: any) => {
     e.stopPropagation();

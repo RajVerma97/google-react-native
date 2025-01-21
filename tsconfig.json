@@ -14,8 +14,7 @@
       "@hooks/*": ["./src/hooks/*"],
       "@constants/*": ["./src/constants/*"],
       "@utils/*": ["./src/utils/*"],
-      "@queries/*": ["./src/queries/*"],
-      "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
+      "@queries/*": ["./src/queries/*"]
     },
     "esModuleInterop": true,
     "skipLibCheck": true,

@@ -1,6 +1,5 @@
 import { auth } from '@utils/firebase';
 import { useState, useEffect } from 'react';
-import { FirebaseUser } from '../types/user';
 import { User } from 'firebase/auth';
 
 export default function useUser() {
