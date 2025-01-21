@@ -2,8 +2,8 @@ import { Metrics } from '@/types/environmental-metrics';
 
 export const metrics: Metrics = [
   {
-    title: 'Gurugram',
-    value: '30',
+    title: 'Temp',
+    value: '30°',
     iconName: 'shield-moon',
     iconColor: '#FFFFFF',
   },

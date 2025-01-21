@@ -1,5 +1,8 @@
-export type SearchResultItem = {
-  id: number;
-  text: string;
+export type SearchResult = {
+  id: string;
+  query: string;
+  timestamp: Date;
+  userId?: string;
 };
-export type SearchResults = Array<SearchResultItem>;
+
+type SearchResults = Array<SearchResult>;

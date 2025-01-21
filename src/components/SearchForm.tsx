@@ -13,25 +13,35 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { router } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
 import { uploadImageToCloudinary } from '@/utils/cloundinary';
-
+import { firestore } from '@utils/firebase';
+import { collection, addDoc } from 'firebase/firestore';
+import useUser from '@/hooks/useUser';
 export enum MODE {
   SEARCH = 'SEARCH',
   HOME = 'HOME',
 }
 type SearchFormProps = {
   mode?: MODE;
+  selectedQuery?: string | null;
 };
 
 enum SEARCHTYPE {
   TEXT = 'TEXT',
   IMAGE = 'IMAGE',
 }
-export default function SearchForm({ mode }: SearchFormProps) {
+export default function SearchForm({ mode, selectedQuery }: SearchFormProps) {
+  const { user } = useUser();
   const [query, setQuery] = useState('');
   const [showWebView, setShowWebView] = useState(false);
   const [searchType, setSearchType] = useState<SEARCHTYPE>(SEARCHTYPE.TEXT);
   const [downloadImageUrl, setDownloadImageUrl] = useState<null | string>(null);
   const [uploading, setUploading] = useState(false);
+
+  useEffect(() => {
+    if (selectedQuery) {
+      setQuery(selectedQuery);
+    }
+  }, [selectedQuery]);
 
   const handleSearch = () => {
     if (mode === MODE.SEARCH) {
@@ -42,7 +52,25 @@ export default function SearchForm({ mode }: SearchFormProps) {
     }, 200);
   };
 
-  const handleSubmit = () => {
+  const addQueryToFirebase = async (query: string) => {
+    try {
+      if (!user) {
+        throw new Error('No authenticated user found');
+      }
+      const collectionRef = collection(firestore, 'search-results');
+      const data = {
+        query: query,
+        timestamp: new Date(),
+        userId: user.uid,
+      };
+      await addDoc(collectionRef, data);
+    } catch (error) {
+      console.error('Error adding document: ', error);
+    }
+  };
+
+  const handleSubmit = async () => {
+    await addQueryToFirebase(query);
     setSearchType(SEARCHTYPE.TEXT);
     setShowWebView(true);
   };
