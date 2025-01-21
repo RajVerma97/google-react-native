@@ -20,8 +20,7 @@ type BottomSheetProps = {
 export default function BottomSheet({ isVisible, hideBottomSheet, translateY }: BottomSheetProps) {
   const { user } = useUser();
 
-  const [error, setError] = useState<string | null>(null);
-  console.log(user);
+  const [_, setError] = useState<string | null>(null);
 
   const handleContentPress = useCallback((e: any) => {
     e.stopPropagation();
