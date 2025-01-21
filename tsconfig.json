@@ -12,7 +12,8 @@
       "@types/*": ["./src/types/*"],
       "@data/*": ["./src/data/*"],
       "@hooks/*": ["./src/hooks/*"],
-      "@constants/*": ["./src/constants/*"]
+      "@constants/*": ["./src/constants/*"],
+      "@utils/*": ["./src/utils/*"]
     },
     "esModuleInterop": true,
     "skipLibCheck": true,

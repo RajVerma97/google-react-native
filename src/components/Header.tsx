@@ -5,8 +5,12 @@ import GoogleGeminiImage from '../../assets/images/google-gemini.svg';
 import BeakerImage from '../../assets/images/beaker.png';
 import useBottomSheet from '@/hooks/useBottomSheet';
 import BottomSheet from './BottomSheet';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import useUser from '@/hooks/useUser';
 
 export default function Header() {
+  const { user } = useUser();
+
   const { isVisible, showBottomSheet, hideBottomSheet, translateY } = useBottomSheet();
   return (
     <View className="flex-row justify-between items-center">
@@ -23,12 +27,29 @@ export default function Header() {
         </View>
       </View>
       <View>
-        <TouchableOpacity
-          onPress={showBottomSheet}
-          className=" w-12 h-12 bg-[#79929E] rounded-full flex justify-center items-center"
-        >
-          <Text className="font-inter text-lg text-white">A</Text>
-        </TouchableOpacity>
+        {user ? (
+          <TouchableOpacity
+            onPress={showBottomSheet}
+            className=" w-12 h-12 bg-[#79929E] rounded-full flex justify-center items-center"
+          >
+            {user.photoURL ? (
+              <Image
+                source={{ uri: user.photoURL }}
+                style={{ width: '100%', height: '100%' }}
+                className="rounded-full"
+              />
+            ) : (
+              <MaterialIcons name="account-circle" color="white" size={28} />
+            )}
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            onPress={showBottomSheet}
+            className=" w-12 h-12 bg-[#79929E] rounded-full flex justify-center items-center"
+          >
+            <MaterialIcons name="account-circle" color="white" size={28} />
+          </TouchableOpacity>
+        )}
       </View>
       <BottomSheet
         isVisible={isVisible}

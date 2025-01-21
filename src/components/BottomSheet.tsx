@@ -1,10 +1,15 @@
 import React, { useCallback } from 'react';
+import { useState } from 'react';
 import { View, Modal, TouchableOpacity, Animated, Text, Image } from 'react-native';
 import HorizontalDivider from '@components/HorizontalDivider';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import GoogleLogo from '../../assets/images/google-logo.png';
 import { SETTINGS } from '@/data/bottomsheet';
 import { SettingItem } from '@/types/bottomsheet';
+import { auth } from '@utils/firebase';
+import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+
+import useUser from '@/hooks/useUser';
 
 type BottomSheetProps = {
   isVisible: boolean;
@@ -13,9 +18,35 @@ type BottomSheetProps = {
 };
 
 export default function BottomSheet({ isVisible, hideBottomSheet, translateY }: BottomSheetProps) {
+  const { user } = useUser();
+
+  const [error, setError] = useState<string | null>(null);
+  console.log(user);
+
   const handleContentPress = useCallback((e: any) => {
     e.stopPropagation();
   }, []);
+
+  const signInWithGoogle = async () => {
+    try {
+      setError(null);
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Logout failed';
+      setError(errorMessage);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      setError(null);
+      await signOut(auth);
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'logout failed';
+      setError('Error signing out: ' + errorMessage);
+    }
+  };
 
   return (
     <Modal
@@ -55,13 +86,38 @@ export default function BottomSheet({ isVisible, hideBottomSheet, translateY }: 
               </View>
               <View className="flex flex-row justify-between">
                 <View className="flex flex-row">
-                  <TouchableOpacity className=" w-12 h-12 bg-[#79929E] rounded-full flex justify-center items-center">
-                    <Text className="font-inter text-lg text-white">A</Text>
-                  </TouchableOpacity>
-                  <View className="ml-2">
-                    <Text className="text-white font-inter text-xl"> Rajneesh kumar</Text>
-                    <Text className="text-white font-inter mt-1 ">rajneeshkumar2545@gmail.com</Text>
-                  </View>
+                  {user ? (
+                    <View className="flex flex-row items-center">
+                      <TouchableOpacity className=" w-12 h-12 bg-[#79929E] rounded-full flex justify-center items-center">
+                        {user.photoURL ? (
+                          <Image
+                            source={{ uri: user.photoURL }}
+                            style={{ width: '100%', height: '100%' }}
+                            className="rounded-full"
+                          />
+                        ) : (
+                          <MaterialIcons name="account-circle" color="white" size={28} />
+                        )}
+                      </TouchableOpacity>
+                      <View className="ml-2">
+                        <Text className="text-white font-inter text-xl"> {user.displayName}</Text>
+                        <Text className="text-white font-inter mt-1 text-md">{user.email}</Text>
+
+                        <TouchableOpacity className="ml-2 mt-2" onPress={handleLogout}>
+                          <Text className="text-red-500 font-inter text-lg">Logout</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  ) : (
+                    <View className="flex flex-row items-center">
+                      <TouchableOpacity className=" w-12 h-12 bg-[#79929E] rounded-full flex justify-center items-center">
+                        <MaterialIcons name="account-circle" color="white" size={28} />
+                      </TouchableOpacity>
+                      <TouchableOpacity className="ml-2" onPress={signInWithGoogle}>
+                        <Text className="text-blue-500 font-inter text-lg">Add Account</Text>
+                      </TouchableOpacity>
+                    </View>
+                  )}
                 </View>
                 <TouchableOpacity>
                   <MaterialIcons name="arrow-drop-down-circle" color="white" size={36} />
