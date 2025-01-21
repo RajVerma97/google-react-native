@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_KEY = '7852ceae6d4a4086b711dfcd571bdeb3';
+const API_KEY = process.env.EXPO_NEWS_API_KEY;
 const NEWS_API_URL = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`;
 
 export async function fetchNews() {
