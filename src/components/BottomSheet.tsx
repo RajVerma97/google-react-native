@@ -14,7 +14,7 @@ type BottomSheetProps = {
 };
 
 export default function BottomSheet({ isVisible, hideBottomSheet, translateY }: BottomSheetProps) {
-  const { user, signInWithGoogle, handleLogout, error } = useGoogleAuth();
+  const { user, signInWithGoogle, handleLogout } = useGoogleAuth();
 
   const handleContentPress = useCallback((e: any) => {
     e.stopPropagation();
@@ -61,9 +61,9 @@ export default function BottomSheet({ isVisible, hideBottomSheet, translateY }: 
                   {user ? (
                     <View className="flex flex-row items-center">
                       <TouchableOpacity className=" w-12 h-12 bg-[#79929E] rounded-full flex justify-center items-center">
-                        {user.photoURL ? (
+                        {user.photo ? (
                           <Image
-                            source={{ uri: user.photoURL }}
+                            source={{ uri: user.photo }}
                             style={{ width: '100%', height: '100%' }}
                             className="rounded-full"
                           />
@@ -72,7 +72,7 @@ export default function BottomSheet({ isVisible, hideBottomSheet, translateY }: 
                         )}
                       </TouchableOpacity>
                       <View className="ml-2">
-                        <Text className="text-white font-inter text-xl"> {user.displayName}</Text>
+                        <Text className="text-white font-inter text-xl"> {user.name}</Text>
                         <Text className="text-white font-inter mt-1 text-md">{user.email}</Text>
 
                         <TouchableOpacity className="ml-2 mt-2" onPress={handleLogout}>

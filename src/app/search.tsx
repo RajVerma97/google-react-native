@@ -11,6 +11,7 @@ import { useGoogleAuth } from '@/hooks/useGoogleAuth';
 export default function Search() {
   const [results, setResults] = useState<SearchResults | null>(null);
   const { user } = useGoogleAuth();
+
   const [selectedQuery, setSelectedQuery] = useState<string | null>(null);
 
   useEffect(() => {
@@ -46,7 +47,7 @@ export default function Search() {
         return [];
       }
     };
-    fetchUserSearchResults(user.uid);
+    fetchUserSearchResults(user.id);
   }, [user]);
 
   const handlePress = (query: string) => {
