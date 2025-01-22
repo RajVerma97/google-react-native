@@ -36,7 +36,9 @@
         {
           "fonts": ["./assets/fonts/Poppins/Poppins-Regular.ttf"]
         }
-      ]
+      ],
+      ["@react-native-firebase/app"],
+      ["@react-native-google-signin/google-signin"]
     ],
     "experiments": {
       "typedRoutes": true
