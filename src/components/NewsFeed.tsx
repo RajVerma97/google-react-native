@@ -28,7 +28,7 @@ export default function NewsFeed() {
     return date.toLocaleDateString();
   };
   return (
-    <View className="mt-8 grid gap-8">
+    <View className="mt-8 md:mt-10 grid grid-cols-1  md:grid-cols-2 gap-8 md:gap-12">
       {filteredArticles?.map((newsArticle: NewsArticle, index: number) => (
         <TouchableOpacity
           key={index}
@@ -37,7 +37,7 @@ export default function NewsFeed() {
         >
           <Image source={{ uri: newsArticle.urlToImage }} className="h-[15rem] rounded-xl" />
           <View className="px-0 py-4">
-            <Text className="text-3xl capitalize font-medium  font-inter text-white">
+            <Text className="text-2xl capitalize font-medium  font-inter text-white">
               {newsArticle?.title?.substring(0, 40)}
             </Text>
 

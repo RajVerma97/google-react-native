@@ -132,7 +132,7 @@ export default function SearchForm({ mode, selectedQuery }: SearchFormProps) {
   };
   return (
     <View className="flex flex-row justify-between bg-[#2F3133] items-center p-4   mt-8 rounded-full">
-      <View className="flex flex-row items-center">
+      <View className="flex flex-row items-center flex-1">
         {mode === MODE.SEARCH ? (
           <TouchableOpacity onPress={goBack}>
             <MaterialIcons name="arrow-back" size={26} color="gray" />
@@ -141,8 +141,9 @@ export default function SearchForm({ mode, selectedQuery }: SearchFormProps) {
           <MaterialIcons name="search" size={26} color="gray" />
         )}
         <TextInput
-          className="ml-2 text-xl text-white  w-60 md:w-[1000]"
+          className="ml-2 text-xl text-white flex-1 "
           placeholder={'Search'}
+          placeholderTextColor={'white'}
           onFocus={handleSearch}
           value={query}
           onChange={handleChange}
