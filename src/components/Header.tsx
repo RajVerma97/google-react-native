@@ -6,10 +6,10 @@ import BeakerImage from '../../assets/images/beaker.png';
 import useBottomSheet from '@/hooks/useBottomSheet';
 import BottomSheet from './BottomSheet';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import useUser from '@/hooks/useUser';
+import { useGoogleAuth } from '@/hooks/useGoogleAuth';
 
 export default function Header() {
-  const { user } = useUser();
+  const { user } = useGoogleAuth();
 
   const { isVisible, showBottomSheet, hideBottomSheet, translateY } = useBottomSheet();
   return (

@@ -5,12 +5,12 @@ import { MODE } from '@components/SearchForm';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons.js';
 import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
 import { firestore } from '@/utils/firebase';
-import useUser from '@/hooks/useUser';
 import { SearchResult, SearchResults } from '@/types/search-results';
+import { useGoogleAuth } from '@/hooks/useGoogleAuth';
 
 export default function Search() {
   const [results, setResults] = useState<SearchResults | null>(null);
-  const { user } = useUser();
+  const { user } = useGoogleAuth();
   const [selectedQuery, setSelectedQuery] = useState<string | null>(null);
 
   useEffect(() => {

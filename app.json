@@ -39,8 +39,17 @@
           "fonts": ["./assets/fonts/Poppins/Poppins-Regular.ttf"]
         }
       ],
-      ["@react-native-firebase/app"],
-      ["@react-native-google-signin/google-signin"]
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ],
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      "@react-native-google-signin/google-signin"
     ],
     "experiments": {
       "typedRoutes": true

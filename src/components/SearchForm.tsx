@@ -15,7 +15,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { uploadImageToCloudinary } from '@/utils/cloundinary';
 import { firestore } from '@utils/firebase';
 import { collection, addDoc } from 'firebase/firestore';
-import useUser from '@/hooks/useUser';
+import { useGoogleAuth } from '@/hooks/useGoogleAuth';
 export enum MODE {
   SEARCH = 'SEARCH',
   HOME = 'HOME',
@@ -30,7 +30,7 @@ enum SEARCHTYPE {
   IMAGE = 'IMAGE',
 }
 export default function SearchForm({ mode, selectedQuery }: SearchFormProps) {
-  const { user } = useUser();
+  const { user } = useGoogleAuth();
   const [query, setQuery] = useState('');
   const [showWebView, setShowWebView] = useState(false);
   const [searchType, setSearchType] = useState<SEARCHTYPE>(SEARCHTYPE.TEXT);

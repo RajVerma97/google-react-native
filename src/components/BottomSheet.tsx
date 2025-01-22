@@ -1,16 +1,11 @@
-import React, { useCallback, useEffect } from 'react';
-import { useState } from 'react';
-import { View, Modal, TouchableOpacity, Animated, Text, Image, Platform } from 'react-native';
+import React, { useCallback } from 'react';
+import { View, Modal, TouchableOpacity, Animated, Text, Image } from 'react-native';
 import HorizontalDivider from '@components/HorizontalDivider';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import GoogleLogo from '../../assets/images/google-logo.png';
 import { SETTINGS } from '@/data/bottomsheet';
 import { SettingItem } from '@/types/bottomsheet';
-import { auth as FAuth } from '@utils/firebase';
-import { GoogleAuthProvider, signOut, signInWithPopup } from 'firebase/auth';
-import useUser from '@/hooks/useUser';
-import auth from '@react-native-firebase/auth';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { useGoogleAuth } from '@/hooks/useGoogleAuth';
 
 type BottomSheetProps = {
   isVisible: boolean;
@@ -18,78 +13,12 @@ type BottomSheetProps = {
   translateY: Animated.Value;
 };
 
-GoogleSignin.configure({
-  iosClientId: '294175185450-j5v8hi6mo00qvnj370kaf37hm3oni22q.apps.googleusercontent.com',
-  webClientId: '294175185450-eg5b30lkhs7och4n9lgppbm595v2do66.apps.googleusercontent.com',
-  scopes: ['profile', 'email'],
-});
-
 export default function BottomSheet({ isVisible, hideBottomSheet, translateY }: BottomSheetProps) {
-  // const { user } = useUser();
-  const [user, setUser] = useState();
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [isSignUp, setIsSignUp] = useState(false);
-  const [initializing, setInitializing] = useState(true);
-  const [, setError] = useState<string | null>(null);
+  const { user, signInWithGoogle, handleLogout, error } = useGoogleAuth();
 
   const handleContentPress = useCallback((e: any) => {
     e.stopPropagation();
   }, []);
-
-  const handleLogout = () => {
-    auth()
-      .signOut()
-      .then(() => console.log('User signed out!'));
-    setLoggedIn(false);
-    // setEmail('');
-    // setPassword('');
-  };
-
-  function onAuthStateChanged(user: any) {
-    setUser(user);
-    if (user) setLoggedIn(true);
-    else setLoggedIn(false);
-    if (initializing) setInitializing(false);
-  }
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-  }, [onAuthStateChanged]);
-
-  const signInWithGoogle = async () => {
-    try {
-      setError(null);
-
-      // if (Platform.OS === 'web') {
-      //   // Use existing web flow
-      //   const provider = new GoogleAuthProvider();
-      //   await signInWithPopup(FAuth, provider);
-      // } else {
-      await GoogleSignin.signOut();
-      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-      // Get the users ID token
-      const googleSignInResult = await GoogleSignin.signIn();
-
-      // Create a Google credential with the token
-      const googleCredential = auth.GoogleAuthProvider.credential(googleSignInResult.data?.idToken);
-
-      // Sign-in the user with the credential
-      return await auth().signInWithCredential(googleCredential);
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Login failed';
-      setError(errorMessage);
-    }
-  };
-  // const handleLogout = async () => {
-  //   try {
-  //     setError(null);
-  //     await signOut(FAuth);
-  //   } catch (error) {
-  //     const errorMessage = error instanceof Error ? error.message : 'logout failed';
-  //     setError('Error signing out: ' + errorMessage);
-  //   }
-  // };
 
   return (
     <Modal
@@ -132,7 +61,7 @@ export default function BottomSheet({ isVisible, hideBottomSheet, translateY }: 
                   {user ? (
                     <View className="flex flex-row items-center">
                       <TouchableOpacity className=" w-12 h-12 bg-[#79929E] rounded-full flex justify-center items-center">
-                        {/* {user.photoURL ? (
+                        {user.photoURL ? (
                           <Image
                             source={{ uri: user.photoURL }}
                             style={{ width: '100%', height: '100%' }}
@@ -140,11 +69,11 @@ export default function BottomSheet({ isVisible, hideBottomSheet, translateY }: 
                           />
                         ) : (
                           <MaterialIcons name="account-circle" color="white" size={28} />
-                        )} */}
+                        )}
                       </TouchableOpacity>
                       <View className="ml-2">
-                        {/* <Text className="text-white font-inter text-xl"> {user.displayName}</Text>
-                        <Text className="text-white font-inter mt-1 text-md">{user.email}</Text> */}
+                        <Text className="text-white font-inter text-xl"> {user.displayName}</Text>
+                        <Text className="text-white font-inter mt-1 text-md">{user.email}</Text>
 
                         <TouchableOpacity className="ml-2 mt-2" onPress={handleLogout}>
                           <Text className="text-red-500 font-inter text-lg">Logout</Text>
