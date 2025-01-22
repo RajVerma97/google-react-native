@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useState } from 'react';
 import { View, Modal, TouchableOpacity, Animated, Text, Image, Platform } from 'react-native';
 import HorizontalDivider from '@components/HorizontalDivider';
@@ -7,33 +7,18 @@ import GoogleLogo from '../../assets/images/google-logo.png';
 import { SETTINGS } from '@/data/bottomsheet';
 import { SettingItem } from '@/types/bottomsheet';
 import { auth } from '@utils/firebase';
-import { GoogleAuthProvider, signOut, signInWithPopup, signInWithCredential } from 'firebase/auth';
+import { GoogleAuthProvider, signOut, signInWithPopup } from 'firebase/auth';
 import useUser from '@/hooks/useUser';
-import * as WebBrowser from 'expo-web-browser';
-import * as Google from 'expo-auth-session/providers/google';
 
 type BottomSheetProps = {
   isVisible: boolean;
   hideBottomSheet: () => void;
   translateY: Animated.Value;
 };
-WebBrowser.maybeCompleteAuthSession();
 export default function BottomSheet({ isVisible, hideBottomSheet, translateY }: BottomSheetProps) {
   const { user } = useUser();
 
   const [, setError] = useState<string | null>(null);
-
-  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    clientId: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
-  });
-
-  useEffect(() => {
-    if (response?.type === 'success') {
-      const { id_token } = response.params;
-      const credential = GoogleAuthProvider.credential(id_token);
-      signInWithCredential(auth, credential);
-    }
-  }, [response]);
 
   const handleContentPress = useCallback((e: any) => {
     e.stopPropagation();
@@ -48,7 +33,6 @@ export default function BottomSheet({ isVisible, hideBottomSheet, translateY }: 
         await signInWithPopup(auth, provider);
       } else {
         // Use Expo auth for mobile
-        await promptAsync();
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Login failed';
