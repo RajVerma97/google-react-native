@@ -7,14 +7,17 @@ import GoogleLogo from '../../assets/images/google-logo.png';
 import { SETTINGS } from '@/data/bottomsheet';
 import { SettingItem } from '@/types/bottomsheet';
 import { auth } from '@utils/firebase';
-import { GoogleAuthProvider, signOut, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, signOut, signInWithPopup, signInWithCredential } from 'firebase/auth';
 import useUser from '@/hooks/useUser';
+import * as Google from 'expo-auth-session/providers/google';
+import { ResponseType } from 'expo-auth-session';
 
 type BottomSheetProps = {
   isVisible: boolean;
   hideBottomSheet: () => void;
   translateY: Animated.Value;
 };
+
 export default function BottomSheet({ isVisible, hideBottomSheet, translateY }: BottomSheetProps) {
   const { user } = useUser();
 
@@ -24,15 +27,31 @@ export default function BottomSheet({ isVisible, hideBottomSheet, translateY }: 
     e.stopPropagation();
   }, []);
 
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    webClientId: '294175185450-eg5b30lkhs7och4n9lgppbm595v2do66.apps.googleusercontent.com',
+    iosClientId: '294175185450-j5v8hi6mo00qvnj370kaf37hm3oni22q.apps.googleusercontent.com',
+    androidClientId: '294175185450-5au1ovcoke1qt9mjq9kadktkv245t4hi.apps.googleusercontent.com',
+    responseType: ResponseType.Token,
+  });
+
   const signInWithGoogle = async () => {
     try {
       setError(null);
+
       if (Platform.OS === 'web') {
         // Use existing web flow
         const provider = new GoogleAuthProvider();
         await signInWithPopup(auth, provider);
       } else {
-        // Use Expo auth for mobile
+        // Use Expo Auth for mobile
+        const result = await promptAsync();
+        if (result?.type === 'success') {
+          const { id_token } = result.params;
+          const credential = GoogleAuthProvider.credential(id_token);
+          await signInWithCredential(auth, credential); // Use signInWithCredential from firebase/auth
+        } else {
+          throw new Error('Google Sign-In failed');
+        }
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Login failed';
