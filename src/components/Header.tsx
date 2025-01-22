@@ -32,9 +32,9 @@ export default function Header() {
             onPress={showBottomSheet}
             className=" w-12 h-12 bg-[#79929E] rounded-full flex justify-center items-center"
           >
-            {user.photoURL ? (
+            {user.photo ? (
               <Image
-                source={{ uri: user.photoURL }}
+                source={{ uri: user.photo }}
                 style={{ width: '100%', height: '100%' }}
                 className="rounded-full"
               />

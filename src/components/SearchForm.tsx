@@ -61,7 +61,7 @@ export default function SearchForm({ mode, selectedQuery }: SearchFormProps) {
       const data = {
         query: query,
         timestamp: new Date(),
-        userId: user.uid,
+        userId: user.id,
       };
       await addDoc(collectionRef, data);
     } catch (error) {

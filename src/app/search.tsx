@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import SearchForm from '@components/SearchForm';
 import { MODE } from '@components/SearchForm';
@@ -7,6 +7,7 @@ import { collection, getDocs, limit, orderBy, query, where } from 'firebase/fire
 import { firestore } from '@/utils/firebase';
 import { SearchResult, SearchResults } from '@/types/search-results';
 import { useGoogleAuth } from '@/hooks/useGoogleAuth';
+import { useFocusEffect } from 'expo-router';
 
 export default function Search() {
   const [results, setResults] = useState<SearchResults | null>(null);
@@ -14,41 +15,43 @@ export default function Search() {
 
   const [selectedQuery, setSelectedQuery] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!user) {
-      return;
-    }
-    const fetchUserSearchResults = async (userId: string, limitCount: number = 20) => {
-      try {
-        const searchCollectionRef = collection(firestore, 'search-results');
-
-        const q = query(
-          searchCollectionRef,
-          where('userId', '==', userId),
-          orderBy('timestamp', 'desc'),
-          limit(limitCount),
-        );
-
-        const querySnapshot = await getDocs(q);
-        const results: SearchResults = [];
-
-        querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          results.push({
-            id: doc.id,
-            query: data.query,
-            timestamp: data.timestamp.toDate(),
-            userId: data.userId,
-          });
-        });
-        setResults(results);
-      } catch (error) {
-        console.error('Error fetching user search results: ', error);
-        return [];
+  useFocusEffect(
+    useCallback(() => {
+      if (!user) {
+        return;
       }
-    };
-    fetchUserSearchResults(user.id);
-  }, [user]);
+      const fetchUserSearchResults = async (userId: string, limitCount: number = 20) => {
+        try {
+          const searchCollectionRef = collection(firestore, 'search-results');
+
+          const q = query(
+            searchCollectionRef,
+            where('userId', '==', userId),
+            orderBy('timestamp', 'desc'),
+            limit(limitCount),
+          );
+
+          const querySnapshot = await getDocs(q);
+          const results: SearchResults = [];
+
+          querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            results.push({
+              id: doc.id,
+              query: data.query,
+              timestamp: data.timestamp.toDate(),
+              userId: data.userId,
+            });
+          });
+
+          setResults(results);
+        } catch (error) {
+          console.error('Error fetching user search results: ', error);
+        }
+      };
+      fetchUserSearchResults(user.id);
+    }, [user]),
+  );
 
   const handlePress = (query: string) => {
     setSelectedQuery(query);
