@@ -37,7 +37,9 @@
           "fonts": ["./assets/fonts/Poppins/Poppins-Regular.ttf"]
         }
       ],
-      ["expo-image-picker"]
+      ["expo-image-picker"],
+      ["expo-auth-session"],
+      ["expo-application"]
     ],
     "experiments": {
       "typedRoutes": true
