@@ -38,12 +38,6 @@
         }
       ],
       [
-        "expo-font",
-        {
-          "fonts": ["./assets/fonts/Poppins/Poppins-Regular.ttf"]
-        }
-      ],
-      [
         "expo-build-properties",
         {
           "ios": {
