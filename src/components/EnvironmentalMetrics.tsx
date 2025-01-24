@@ -13,7 +13,7 @@ export default function EnvironmentalMetrics() {
             <Text className="text-white font-inter">{metric.title}</Text>
           </View>
           <View className="flex flex-row justify-between items-center mt-4">
-            <Text className="text-white font-roboto font-medium text-xl">{metric.value}</Text>
+            <Text className="text-white font-inter font-medium text-xl">{metric.value}</Text>
             <MaterialIcons name={metric.iconName} size={24} color={metric.iconColor} />
           </View>
         </View>
