@@ -11,11 +11,15 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.princevegeta.googlereactnative",
-      "googleServicesFile": "./GoogleService-Info.plist"
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "jsEngine": "hermes"
     },
     "android": {
       "package": "com.princevegeta.googlereactnative",
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "jsEngine": "hermes",
+      "enableProguardInReleaseBuilds": true,
+      "enableShrinkResources": true
     },
     "web": {
       "bundler": "metro",
@@ -61,6 +65,10 @@
       "eas": {
         "projectId": "d8d974b9-8dfe-4e2e-a6c6-c2480a1ab38e"
       }
+    },
+    "optimization": {
+      "minifySource": true,
+      "bundleCompression": true
     }
   }
 }
